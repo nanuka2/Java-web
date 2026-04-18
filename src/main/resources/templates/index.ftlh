@@ -1,23 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${title}</title>
+    <title>${title!"Movie Page"}</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
-<body style="font-family: Arial; background-color: #f4f4f4;">
+<body>
+<div class="container">
 
-<div style="width: 600px; margin: 50px auto; background: white; padding: 20px; border-radius: 10px;">
+    <h1>${title!"Movie Page"}</h1>
 
-    <h1>${movieName}</h1>
+    <div class="hero">
+<img src="/movie.jpg" alt="Movie Image" width="500">
+        <div class="hero-text">
 
-    <p><b>Year:</b> ${year}</p>
-    <p><b>Genre:</b> ${genre}</p>
+            <h2>Welcome to Movie Page</h2>
+            <p>Add your favorite movies, choose category, and manage them easily.</p>
+            <a href="/form"><button>Add Movie</button></a>
+        </div>
+    </div>
 
-    <p>${description}</p>
+    <br><br>
 
-    <h3> Rating: ${rating}</h3>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>Movie Name</th>
+            <th>Director</th>
+            <th>Year</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+
+        <#list movies![] as movie>
+            <tr>
+                <td>${movie.id!}</td>
+                <td>${movie.movieName!}</td>
+                <td>${movie.director!}</td>
+                <td>${movie.year!}</td>
+                <td><#if movie.category??>${movie.category.name!}</#if></td>
+                <td><a href="/delete/${movie.id}">Delete</a></td>
+            </tr>
+        </#list>
+    </table>
 
 </div>
 
 </body>
-</html>
 </html>

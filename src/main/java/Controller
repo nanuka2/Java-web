@@ -1,10 +1,44 @@
 @Controller
 public class HomeController {
 
+    private final MovieService movieService;
+
+    public HomeController(MovieService movieService) {
+        this.movieService = movieService;
+    }
+
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("title", "Hello");
-        model.addAttribute("message", "ეს არის ფეიკ ინფო ");
+        var movies = movieService.getAllMovies();
+
+        if (!movies.isEmpty()) {
+            Movie movie = movies.get(0);
+
+            model.addAttribute("movieName", movie.getMovieName());
+            model.addAttribute("description", movie.getDescription());
+        }
+
         return "index";
+    }
+
+    @GetMapping("/form")
+    public String form(Model model) {
+        model.addAttribute("movieForm", new MovieForm());
+        return "form";
+    }
+
+    @PostMapping("/submit")
+    public String submit(@ModelAttribute MovieForm movieForm) {
+
+        Movie movie = new Movie(
+                movieForm.getMovieName(),
+                movieForm.getDescription(),
+                "Unknown",
+                "2024"
+        );
+
+        movieService.saveMovie(movie);
+
+        return "redirect:/";
     }
 }
