@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{form.title}">Add Movie</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="language-switch">
+        <a th:href="@{/form(lang='en')}" th:text="#{app.language.english}">English</a>
+        <span>|</span>
+        <a th:href="@{/form(lang='ka')}" th:text="#{app.language.georgian}">Georgian</a>
+    </div>
+
+    <h2 th:text="#{form.title}">Add Movie</h2>
+
+    <div class="form-page">
+        <img th:src="@{/movie.jpg}" th:alt="#{app.title}" class="side-image">
+
+        <form th:action="@{/submit}" th:object="${movieForm}" method="post" class="movie-form">
+            <label th:text="#{form.movieName}">Movie Name:</label><br>
+            <input type="text" th:field="*{movieName}"><br>
+            <span class="error" th:if="${#fields.hasErrors('movieName')}" th:errors="*{movieName}"></span><br>
+
+            <label th:text="#{form.director}">Director:</label><br>
+            <input type="text" th:field="*{director}"><br>
+            <span class="error" th:if="${#fields.hasErrors('director')}" th:errors="*{director}"></span><br>
+
+            <label th:text="#{form.year}">Year:</label><br>
+            <input type="number" th:field="*{year}"><br>
+            <span class="error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span><br>
+
+            <label th:text="#{form.category}">Category:</label><br>
+            <select th:field="*{categoryId}">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">Category</option>
+            </select><br><br>
+
+            <button type="submit" th:text="#{form.save}">Save Movie</button>
+            <a th:href="@{/}" class="back-link" th:text="#{form.back}">Back</a>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

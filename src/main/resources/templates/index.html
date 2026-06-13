@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{app.title}">Movie Page</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+
+    <div class="language-switch">
+        <a th:href="@{/(lang='en')}" th:text="#{app.language.english}">English</a>
+        <span>|</span>
+        <a th:href="@{/(lang='ka')}" th:text="#{app.language.georgian}">Georgian</a>
+    </div>
+
+    <h1 th:text="#{app.title}">Movie Page</h1>
+
+    <div class="hero">
+        <img th:src="@{/movie.jpg}" th:alt="#{app.title}" width="500">
+        <div class="hero-text">
+            <h2 th:text="#{home.welcome}">Welcome to Movie Page</h2>
+            <p th:text="#{home.description}">Add your favorite movies, choose category, and manage them easily.</p>
+            <a th:href="@{/form}">
+                <button th:text="#{home.addMovie}">Add Movie</button>
+            </a>
+        </div>
+    </div>
+
+    <br><br>
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th th:text="#{table.id}">ID</th>
+            <th th:text="#{table.movieName}">Movie Name</th>
+            <th th:text="#{table.director}">Director</th>
+            <th th:text="#{table.year}">Year</th>
+            <th th:text="#{table.category}">Category</th>
+            <th th:text="#{table.action}">Action</th>
+        </tr>
+
+        <tr th:each="movie : ${movies}">
+            <td th:text="${movie.id}">1</td>
+            <td th:text="${movie.movieName}">Movie Name</td>
+            <td th:text="${movie.director}">Director</td>
+            <td th:text="${movie.year}">Year</td>
+            <td th:text="${movie.category != null ? movie.category.name : ''}">Category</td>
+            <td>
+                <a th:href="@{/delete/{id}(id=${movie.id})}" th:text="#{table.delete}">Delete</a>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

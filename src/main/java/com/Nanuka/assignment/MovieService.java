@@ -1,5 +1,7 @@
 package com.Nanuka.assignment;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +16,12 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
+    @Cacheable("movies")
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
     }
 
+    @CacheEvict(value = "movies", allEntries = true)
     public void saveMovie(Movie movie) {
         movieRepository.save(movie);
     }
@@ -26,6 +30,7 @@ public class MovieService {
         return movieRepository.findById(id);
     }
 
+    @CacheEvict(value = "movies", allEntries = true)
     public void deleteMovie(Long id) {
         movieRepository.deleteById(id);
     }

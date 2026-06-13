@@ -16,6 +16,22 @@ h1, h2 {
     color: #222;
 }
 
+.language-switch {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.language-switch a {
+    color: #2d89ef;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.language-switch span {
+    color: #777;
+    margin: 0 8px;
+}
+
 .hero {
     display: flex;
     align-items: center;

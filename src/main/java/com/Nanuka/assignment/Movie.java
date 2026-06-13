@@ -11,13 +11,13 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Movie name is required")
+    @NotBlank(message = "{movie.name.required}")
     private String movieName;
 
-    @NotBlank(message = "Director is required")
+    @NotBlank(message = "{movie.director.required}")
     private String director;
 
-    @Min(value = 1888, message = "Year must be valid")
+    @Min(value = 1888, message = "{movie.year.valid}")
     @Column(name = "release_year")
     private int year;
 

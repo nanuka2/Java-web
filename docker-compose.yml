@@ -1,0 +1,14 @@
+services:
+  movie-app:
+    build: .
+    container_name: movie-app
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
